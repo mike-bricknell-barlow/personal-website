@@ -1,0 +1,37 @@
+{{ define "header" }}
+    <header class="mini container">
+        <a class="back" href="#">
+            <img class="icon" src="/icons/chevron.svg" alt="Left chevron" />
+            Back
+        </a>
+
+        {{ range .Mini }}
+            {{ range .Data }}
+                {{if .Attributes.FeaturedImage.Data.Attributes}}
+                    <div class="mini__image-wrapper">
+                        <picture class="mini__image">
+                            <source media="(min-width: 1200px)" srcset="/cms/images{{ .Attributes.FeaturedImage.Data.Attributes.Formats.Large.URL }}" />
+                            <source media="(min-width: 768px)" srcset="/cms/images{{ .Attributes.FeaturedImage.Data.Attributes.Formats.Medium.URL }}" />
+                            <img src="/cms/images{{ .Attributes.FeaturedImage.Data.Attributes.Formats.Small.URL }}" alt="{{ .Attributes.Title }}" />
+                        </picture>
+                    </div>
+                {{else}}
+                    <div class="mini__image-wrapper">
+                        <picture class="mini__image">
+                            <img src="/images/minis-list-fallback.webp" alt="{{ .Attributes.Title }}" class="list__image" />
+                        </picture>
+                    </div>
+                {{end}}
+
+                <h1>{{ .Attributes.Title }}</h1>
+
+                <div class="mini__meta">
+                    <div class="mini__date">
+                        <img class="icon" src="/icons/calendar.svg" alt="Completed on" />
+                        <span>{{ .Attributes.Completed.Format "Jan 02, 2006 3:04 PM" }}</span>
+                    </div>
+                </div>
+            {{ end }}
+        {{ end }}
+    </header>
+{{ end }}

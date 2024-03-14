@@ -1,0 +1,93 @@
+body {
+    background-color: #f2f2f2;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+.mini {
+    h1, p, span {
+        color: #3a3a3a;
+    }
+
+    h1 {
+        font-size: 2.4rem;
+    }
+
+    .icon {
+        width: 12px;
+        height: 12px;
+        margin: 0 0.5rem 0 0;
+    }
+
+    &__image-wrapper {
+        aspect-ratio: 3 / 2;
+        max-width: 800px;
+        margin: 2rem 0;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+    }
+
+    .back {
+        color: #3a3a3a;
+    }
+
+    &__meta {
+        margin-top: 1rem;
+    }
+
+    &__gallery {
+        display: grid;
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        grid-gap: 1rem;
+
+        @media (min-width: 440px) {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        @media (min-width: 768px) {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        @media (min-width: 1800px) {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+    }
+
+    &__gallery-image,
+    &__gallery-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+.lg-thumb {
+    display: flex;
+    justify-content: center;
+    width: 100% !important;
+}
+
+.lg-thumb-item {
+    img {
+        width: 100%;
+    }
+}
+
+main.mini {
+    h1, h2, h3, h4, h5, h6, p, span {
+        max-width: 700px;
+        margin: 0 0 2rem;
+        line-height: 1.4;
+        font-size: 1.2rem;
+        color: #565656;
+    }
+}

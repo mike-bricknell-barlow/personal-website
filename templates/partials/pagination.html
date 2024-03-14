@@ -1,0 +1,22 @@
+{{ define "pagination" }}
+<span class="pagination">
+    {{ if lt .Meta.Pagination.Page 3 }}
+        <a href="/miniatures/" class="pagination__link {{ if lt .Meta.Pagination.Page 2 }} inactive {{ end }}">
+            <img src="/icons/chevron.svg" alt="Left chevron" />
+            Back
+        </a>
+    {{ end }}
+
+    {{ if gt .Meta.Pagination.Page 2 }}
+        <a href="/miniatures/page/{{ dec .Meta.Pagination.Page }}/" class="pagination__link {{ if lt .Meta.Pagination.Page 2 }} inactive {{ end }}">
+            <img src="/icons/chevron.svg" alt="Left chevron" />
+            Back
+        </a>
+    {{ end }}
+
+    <a href="/miniatures/page/{{ inc .Meta.Pagination.Page }}/" class="pagination__link {{ if gt (inc .Meta.Pagination.Page) .Meta.Pagination.PageCount }} inactive {{ end }}">
+        Next
+        <img src="/icons/chevron.svg" alt="Right chevron" />
+    </a>
+</span>
+{{ end }}

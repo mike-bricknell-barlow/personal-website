@@ -1,0 +1,34 @@
+{{ define "list" }}
+<section class="list">
+    {{range .Minis}}
+        {{ range .Data }}
+            <div class="list__card">
+                <a href="/miniatures/{{ .Attributes.Slug }}/" class="list__link">
+                    <div class="list__image-wrapper">
+                        {{if .Attributes.FeaturedImage.Data.Attributes}}
+                            <picture class="list__image">
+                                <source media="(min-width: 1200px)" srcset="/cms/images{{ .Attributes.FeaturedImage.Data.Attributes.formats.large.url }}" />
+                                <source media="(min-width: 768px)" srcset="/cms/images{{ .Attributes.FeaturedImage.Data.Attributes.formats.medium.url }}" />
+                                <img src="/cms/images{{ .Attributes.FeaturedImage.Data.Attributes.formats.small.url }}" alt="{{ .Attributes.Title }}" />
+                            </picture>
+                        {{else}}
+                            <picture class="list__image">
+                                <img src="/images/minis-list-fallback.webp" alt="{{ .Attributes.Title }}" class="list__image" />
+                            </picture>
+                        {{end}}
+                    </div>
+                    <div class="list__content">
+                        <h3>{{ .Attributes.Title }}</h3>
+                        <div class="list__date">
+                            <img src="/icons/calendar.svg" alt="Date icon" />
+                            <span>{{ .Attributes.CreatedAt.Format "Jan 02, 2006 3:04 PM" }}</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {{end}}
+
+        {{ template "pagination" . }}
+    {{end}}
+</section>
+{{ end }}

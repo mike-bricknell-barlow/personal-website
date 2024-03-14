@@ -1,0 +1,57 @@
+{{ define "intro" }}
+<section class="intro relative h-100">
+    <img src="/images/forest.webp" alt="Forest" class="bg-image" />
+    <div class="overlay"></div>
+
+    <div class="content intro__content">
+        <h2>Find out more about me.</h2>
+
+        <div class="intro__section">
+            <p>I'm a software developer, a gamer, a codemancer, an aspiring author, a miniature painter.</p>
+            <p>I'm interested in all things geeky, techie, and basically anything else that doesn't involve being outside.</p>
+        </div>
+
+        <div class="intro__section">
+            <p>Still want more info? Check out the links below.</p>
+
+            <div class="links intro__links">
+                <a href="#">
+                    My work
+                    {{ template "external-link-icon" . }}
+                </a>
+                <a href="#">
+                    My novel
+                    {{ template "external-link-icon" . }}
+                </a>
+                <a href="/miniatures/">
+                    My miniatures
+                    {{ template "external-link-icon" . }}
+                </a>
+            </div>
+        </div>
+
+        <div class="intro__section">
+            <p>Or, like many humans, I can be found on social media.</p>
+
+            <div class="links social__links">
+                <a href="https://twitter.com/MikeBB1989" target="_blank">
+                    Twitter/X
+                    {{ template "external-link-icon" . }}
+                </a>
+                <a href="https://www.linkedin.com/in/michael-bricknell-barlow-1a3829b3/" target="_blank">
+                    LinkedIn
+                    {{ template "external-link-icon" . }}
+                </a>
+                <a href="https://github.com/mike-bricknell-barlow" target="_blank">
+                    Github
+                    {{ template "external-link-icon" . }}
+                </a>
+                <a href="https://profiles.wordpress.org/mikebricknellbarlow/" target="_blank">
+                    WordPress
+                    {{ template "external-link-icon" . }}
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{{ end }}

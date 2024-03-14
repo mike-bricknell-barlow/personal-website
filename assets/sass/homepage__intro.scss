@@ -1,0 +1,63 @@
+.intro {
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: start;
+    align-items: start;
+    padding: 0 2rem;
+
+    &.content {
+      width: calc(100% - 4rem);
+    }
+
+    h1, h2 {
+      font-size: 4rem;
+    }
+
+    p {
+      color: #8f8f8f;
+      font-size: 1.4rem;
+      line-height: 1.4;
+    }
+
+    a {
+      color: #8f8f8f;
+      text-decoration: none;
+      border-bottom: 1px dotted #8f8f8f;
+      margin-right: 1rem;
+      display: inline-flex;
+      align-items: center;
+      align-content: center;
+
+      svg {
+        width: 18px;
+        height: 18px;
+        margin: 5px 0 5px 6px;
+
+        .fill-path {
+          fill: #8f8f8f;
+        }
+      }
+
+      &:hover {
+        color: white;
+        border-bottom: 1px dotted white;
+
+        svg {
+          .fill-path {
+            fill: white;
+          }
+        }
+      }
+    }
+  }
+
+  &__section {
+      margin: 1rem 0;
+  }
+
+  .links {
+      margin: 0.5rem 0;
+  }
+}

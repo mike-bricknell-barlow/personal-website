@@ -1,0 +1,21 @@
+.intro {
+    &__content {
+        position: relative;
+        z-index: 2;
+        padding-top: 6rem;
+        padding-bottom: 6rem;
+        text-align: center;
+
+        h1, p {
+            width: 100%;
+        }
+    }
+
+    &__section {
+        width: 100%;
+    }
+
+    .overlay {
+        background-color: rgba(0, 0, 0, 0.85);
+    }
+}

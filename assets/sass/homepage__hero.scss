@@ -1,0 +1,33 @@
+.hero {
+  position: relative;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+
+    h1 {
+      font-size: 15rem;
+      line-height: 1;
+    }
+
+    button {
+      margin-top: 2rem;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      align-content: center;
+
+      span {
+        margin-right: 0.5rem;
+        color: black;
+      }
+
+      img {
+        transform: rotate(180deg);
+      }
+    }
+  }
+}

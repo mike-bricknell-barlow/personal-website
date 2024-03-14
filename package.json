@@ -1,0 +1,12 @@
+{
+  "name": "bricknellbarlow-2024",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "/usr/local/go/bin/go run assets/build.go"
+  },
+  "dependencies": {
+    "sass": "^1.71.1",
+    "uglify-js": "^3.17.4"
+  }
+}

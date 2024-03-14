@@ -1,0 +1,24 @@
+{{ define "body" }}
+    <main class="mini container">
+        {{ range .Mini }}
+            {{ range .Data }}
+                {{ range .Attributes.Content }}
+                    {{ range .Children }}
+                        <p>{{ .Text }}</p>
+                    {{ end }}
+                {{ end }}
+
+                <div class="mini__gallery">
+                    {{ range .Attributes.Gallery.Data }}
+                        <a href="/cms/images{{ .Attributes.URL }}">
+                            <picture class="mini__gallery-image">
+                                <source media="(min-width: 1200px)" srcset="/cms/images{{ .Attributes.Formats.Medium.URL }}" />
+                                <img src="/cms/images{{ .Attributes.Formats.Small.URL }}" alt="{{ .Attributes.AlternativeText }}" />
+                            </picture>
+                        </a>
+                    {{ end }}
+                </div>
+            {{ end }}
+        {{ end }}
+    </main>
+{{ end }}

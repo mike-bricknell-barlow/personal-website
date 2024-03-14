@@ -1,0 +1,39 @@
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    grid-column: 1 / 1;
+
+    @media (min-width: 768px) {
+        grid-column: 1 / 4;
+    }
+
+    @media (min-width: 1800px) {
+        grid-column: 1 / 5;
+    }
+
+    &__link {
+        color: #3a3a3a;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        align-content: center;
+
+        &.inactive {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        img {
+            width: 12px;
+            height: 12px;
+            margin: 0 0.5rem 0 0;
+        }
+
+        &:nth-of-type(2) {
+            img {
+                transform: rotate(180deg);
+                margin: 0 0 0 0.5rem;
+            }
+        }
+    }
+}
