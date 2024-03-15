@@ -121,5 +121,5 @@ workflows:
                 - main
       - notify:
           requires:
-            - build
+            - deploy
           context: Slack
