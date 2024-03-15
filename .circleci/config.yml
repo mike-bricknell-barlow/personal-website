@@ -37,7 +37,7 @@ jobs:
 
       - run:
           name: "Populate env"
-          command: "echo ${SERVER_USER} > .env"
+          command: "echo ${ENV_FILE} > .env"
 
       - run:
           name: "Asset Build"
