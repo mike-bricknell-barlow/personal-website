@@ -1,0 +1,125 @@
+version: 2.1
+orbs:
+  slack: circleci/slack@4.10.1
+
+jobs:
+  yarn-install:
+    working_directory: ~/go-build
+    docker:
+      - image: fsha/node20-yarn3
+    steps:
+      - checkout
+      - attach_workspace:
+            at: ~/go-build
+
+      - run:
+          name: "Yarn install"
+          command: "yarn"
+
+      - persist_to_workspace:
+          root: ~/go-build
+          paths:
+              - ./node_modules
+
+  go-build:
+    working_directory: ~/go-build
+    docker:
+      - image: golang:1.22
+    steps:
+      - checkout
+
+      - attach_workspace:
+            at: ~/go-build
+
+      - run:
+          name: "Mods"
+          command: "go mod tidy"
+
+      - run:
+          name: "Populate env"
+          command: "echo ${SERVER_USER} > .env"
+
+      - run:
+          name: "Asset Build"
+          command: "go run assets/build.go"
+
+      - run:
+          name: "Compile"
+          command: "GOOS=linux GOARCH=amd64 go build index.go"
+
+      - persist_to_workspace:
+          root: ~/go-build
+          paths:
+              - ./index
+
+  deploy:
+    working_directory: ~/go-build
+    docker:
+      - image: mikebelementarydigital/buildimage:php7node8
+
+    steps:
+      - add_ssh_keys:
+            fingerprints:
+              - "68:ad:9c:32:f6:9a:bc:37:cc:07:6b:82:a3:88:c5:35"
+
+      - checkout
+
+      - attach_workspace:
+          at: ~/go-build
+
+      - run:
+          name: "Set host verification key"
+          command: "ssh-keyscan -H ${SERVER_IP} >> ~/.ssh/known_hosts"
+
+      - run:
+          name: "Deploy"
+          command: "rsync -azvv -e ssh ./index ${SERVER_USER}@${SERVER_IP}:/var/www/minis-go/index"
+
+      - run:
+          name: "Run binary"
+          command: "ssh -t ${SERVER_USER}@${SERVER_IP} 'cd /var/www/minis-go && ' ./index &!"
+
+  notify:
+    docker:
+      - image: 'cimg/base:stable'
+    steps:
+      - slack/notify:
+          custom: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "plain_text",
+                      "text": "My minis site deployed",
+                      "emoji": true
+                    }
+                  ]
+                }
+              ]
+            }
+          event: always
+
+workflows:
+  deploy-workflow:
+    jobs:
+      - yarn-install:
+          filters:
+            branches:
+              only:
+                - main
+      - go-build:
+          filters:
+            branches:
+              only:
+                - main
+      - deploy:
+          filters:
+            branches:
+              only:
+                - main
+      - notify:
+          requires:
+            - build
+          context: Slack
