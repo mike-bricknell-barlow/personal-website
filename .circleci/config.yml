@@ -6,7 +6,7 @@ jobs:
   yarn-install:
     working_directory: ~/go-build
     docker:
-      - image: fsha/node20-yarn3
+      - image: fsha/node20-yarn3:v1.1-centos8
     steps:
       - checkout
       - attach_workspace:
