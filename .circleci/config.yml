@@ -110,15 +110,11 @@ workflows:
               only:
                 - main
       - go-build:
-          filters:
-            branches:
-              only:
-                - main
+          requires:
+            - yarn-install
       - deploy:
-          filters:
-            branches:
-              only:
-                - main
+          requires:
+            - go-build
       - notify:
           requires:
             - deploy
