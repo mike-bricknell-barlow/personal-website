@@ -4,11 +4,17 @@ import (
     "net/http"
     "github.com/gorilla/mux"
     "bricknellbarlow/website/controllers"
+    "os"
+    "github.com/joho/godotenv"
 )
 
 
 func main() {
     r := mux.NewRouter()
+
+    godotenv.Load()
+    domain := os.Getenv("DOMAIN")
+    r.Host(domain)
 
     r.PathPrefix("/images/").Handler(http.StripPrefix("/images/", http.FileServer(http.Dir("assets/images/"))))
     r.PathPrefix("/icons/").Handler(http.StripPrefix("/icons/", http.FileServer(http.Dir("assets/icons/"))))
@@ -24,6 +30,13 @@ func main() {
     r.HandleFunc("/miniatures/page/{pageNum}/", controllers.MinisHandler)
     r.HandleFunc("/miniatures/{mini}/", controllers.MiniHandler)
 
-    http.ListenAndServe(":8080", r)
+    httpPort := os.Getenv("HTTP_PORT")
+    httpsPort := os.Getenv("HTTPS_PORT")
+
+    certFile := os.Getenv("CERT_FILE")
+    keyFile := os.Getenv("KEY_FILE")
+
+    http.ListenAndServe(":" + httpPort, r)
+    http.ListenAndServeTLS(":" + httpsPort, certFile, keyFile, r)
 }
 

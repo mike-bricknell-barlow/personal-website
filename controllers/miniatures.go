@@ -126,7 +126,7 @@ func MinisHandler (w http.ResponseWriter, r *http.Request) {
     )
 
     if err := tmpl.Execute(os.Stdout, data); err != nil {
-        fmt.Println(err)
+        //fmt.Println(err)
     }
 
     tmpl.Execute(w, map[string]interface{}{"PageTitle":data.PageTitle, "CriticalStyles":data.CriticalStyles, "Minis":[]Minis{miniData}})
