@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "build": "go run assets/build.go",
-    "prod": "mv .env .env-local && mv .env-prod .env && go build -o ./index && mv .env .env-prod && mv .env-local .env"
+    "prod": "go build -o ./index"
   },
   "dependencies": {
     "sass": "^1.71.1",
