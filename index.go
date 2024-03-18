@@ -19,7 +19,6 @@ func main() {
     r.PathPrefix("/images/").Handler(http.StripPrefix("/images/", http.FileServer(http.Dir("assets/images/"))))
     r.PathPrefix("/icons/").Handler(http.StripPrefix("/icons/", http.FileServer(http.Dir("assets/icons/"))))
     r.PathPrefix("/public/").Handler(http.StripPrefix("/public/", http.FileServer(http.Dir("build/"))))
-    r.PathPrefix("/cms/images/").Handler(http.StripPrefix("/cms/images/", http.FileServer(http.Dir("cms/public/"))))
 
     //r.HandleFunc("/", controllers.HomeHandler)
     r.HandleFunc("/", func (w http.ResponseWriter, r *http.Request) {
@@ -30,13 +29,13 @@ func main() {
     r.HandleFunc("/miniatures/page/{pageNum}/", controllers.MinisHandler)
     r.HandleFunc("/miniatures/{mini}/", controllers.MiniHandler)
 
+    r.HandleFunc("/cms/images/uploads/{path}", func(w http.ResponseWriter, req *http.Request) {
+        vars := mux.Vars(req)
+        mediaDomain := os.Getenv("MEDIA_BASE_URL")
+        http.Redirect(w, req, mediaDomain + vars["path"], http.StatusSeeOther)
+    })
+
     httpPort := os.Getenv("HTTP_PORT")
-    httpsPort := os.Getenv("HTTPS_PORT")
-
-    certFile := os.Getenv("CERT_FILE")
-    keyFile := os.Getenv("KEY_FILE")
-
     http.ListenAndServe(":" + httpPort, r)
-    http.ListenAndServeTLS(":" + httpsPort, certFile, keyFile, r)
 }
 

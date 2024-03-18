@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "/usr/local/go/bin/go run assets/build.go"
+    "build": "go run assets/build.go",
+    "prod": "mv .env .env-local && mv .env-prod .env && go build -o ./index && mv .env .env-prod && mv .env-local .env"
   },
   "dependencies": {
     "sass": "^1.71.1",

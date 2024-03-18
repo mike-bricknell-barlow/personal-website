@@ -1,5 +1,6 @@
 .DS_Store
 .env
+.env-prod
 .idea/
 */.DS_Store
 /build/
