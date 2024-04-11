@@ -23,6 +23,47 @@ type Mini struct {
 					Type string `json:"type"`
 					Text string `json:"text"`
 				} `json:"children"`
+				Image struct {
+                    Name            string `json:"name"`
+                    AlternativeText string `json:"alternativeText"`
+                    URL             string `json:"url"`
+                    Caption         any    `json:"caption"`
+                    Width           int    `json:"width"`
+                    Height          int    `json:"height"`
+                    Formats         struct {
+                        Thumbnail struct {
+                            Name   string  `json:"name"`
+                            Hash   string  `json:"hash"`
+                            Ext    string  `json:"ext"`
+                            Mime   string  `json:"mime"`
+                            Path   any     `json:"path"`
+                            Width  int     `json:"width"`
+                            Height int     `json:"height"`
+                            Size   float64 `json:"size"`
+                            URL    string  `json:"url"`
+                        } `json:"thumbnail"`
+                        Small struct {
+                            Name   string  `json:"name"`
+                            Hash   string  `json:"hash"`
+                            Ext    string  `json:"ext"`
+                            Mime   string  `json:"mime"`
+                            Path   any     `json:"path"`
+                            Width  int     `json:"width"`
+                            Height int     `json:"height"`
+                            Size   float64 `json:"size"`
+                            URL    string  `json:"url"`
+                        } `json:"small"`
+                    } `json:"formats"`
+                    Hash             string    `json:"hash"`
+                    Ext              string    `json:"ext"`
+                    Mime             string    `json:"mime"`
+                    Size             float64   `json:"size"`
+                    PreviewURL       any       `json:"previewUrl"`
+                    Provider         string    `json:"provider"`
+                    ProviderMetadata any       `json:"provider_metadata"`
+                    CreatedAt        time.Time `json:"createdAt"`
+                    UpdatedAt        time.Time `json:"updatedAt"`
+                } `json:"image,omitempty"`
 			} `json:"Content"`
 			Title         string    `json:"Title"`
 			CreatedAt     time.Time `json:"createdAt"`

@@ -3,8 +3,17 @@
         {{ range .Mini }}
             {{ range .Data }}
                 {{ range .Attributes.Content }}
-                    {{ range .Children }}
-                        <p>{{ .Text }}</p>
+                    {{ if eq .Type "paragraph" }}
+                        {{ range .Children }}
+                            <p>{{ .Text }}</p>
+                        {{ end }}
+                    {{ end }}
+
+                    {{ if eq .Type "image" }}
+                        <picture class="mini__in-content-image">
+                            <source media="(min-width: 1200px)" srcset="{{ .Image.URL }}" />
+                            <img src="/cms/images{{ .Image.Formats.Small.URL }}" alt="{{ .Image.AlternativeText }}" />
+                        </picture>
                     {{ end }}
                 {{ end }}
 
