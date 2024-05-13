@@ -13,6 +13,10 @@ import (
     "log"
 )
 
+type CustomTime struct {
+    time.Time
+}
+
 type Attributes struct {
     Content      []struct {
         Type     string `json:"type"`
@@ -25,6 +29,7 @@ type Attributes struct {
     CreatedAt    time.Time `json:"createdAt"`
     UpdatedAt    time.Time `json:"updatedAt"`
     PublishedAt  time.Time `json:"publishedAt"`
+    Completed    CustomTime `json:"Completed"`
     Slug         string `json:"Slug"`
     FeaturedImage struct {
         Data struct {
@@ -53,6 +58,33 @@ type Minis struct {
             Total     int `json:"total"`
         } `json:"pagination"`
     } `json:"meta"`
+}
+
+func isBST(t time.Time) bool {
+    // Determine the start and end dates of British Summer Time (BST)
+    start := time.Date(t.Year(), 3, 25, 1, 0, 0, 0, time.UTC)
+    end := time.Date(t.Year(), 10, 25, 1, 0, 0, 0, time.UTC)
+
+    // Check if the given time is between the start and end dates of BST
+    return t.After(start) && t.Before(end)
+}
+
+func (ct *CustomTime) UnmarshalJSON(data []byte) error {
+    // Parse the input date string into a time.Time object
+    parsedTime, err := time.Parse(`"2006-01-02T15:04:05.000Z"`, string(data))
+    if err != nil {
+        return err
+    }
+
+    if isBST(parsedTime) {
+        // Adjust the time to BST (UTC+1)
+        ct.Time = parsedTime.Add(time.Hour)
+    } else {
+        // Adjust the time to GMT (UTC)
+        ct.Time = parsedTime.UTC()
+    }
+
+    return nil
 }
 
 func MinisHandler (w http.ResponseWriter, r *http.Request) {
